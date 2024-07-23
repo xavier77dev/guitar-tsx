@@ -1,4 +1,16 @@
-const Header = ({ isEmpty, cartTotal, cart, removeFromCart, increaseQuantity, decreaseQuantity, clearCart }) => {
+import { CartItem, Guitar } from "../types";
+
+interface HeaderProps {
+  isEmpty: boolean;
+  cartTotal: number;
+  cart: CartItem[];
+  removeFromCart: (id: Guitar["id"]) => void;
+  increaseQuantity: (id: Guitar["id"]) => void;
+  decreaseQuantity: (id: Guitar["id"]) => void;
+  clearCart: () => void;
+}
+
+const Header = ({ isEmpty, cartTotal, cart, removeFromCart, increaseQuantity, decreaseQuantity, clearCart }: HeaderProps) => {
 
   return (
     <header className="py-5 header">
@@ -49,7 +61,7 @@ const Header = ({ isEmpty, cartTotal, cart, removeFromCart, increaseQuantity, de
                             <td>{guitar.name}</td>
                             <td className="fw-bold">${guitar.price}</td>
                             <td className="flex align-items-start gap-4">
-                              <button onClick={() => decreaseQuantity(guitar.id)} type="button" className="btn btn-dark">
+                              ta                              <button onClick={() => decreaseQuantity(guitar.id)} type="button" className="btn btn-dark">
                                 -
                               </button>
                               {guitar.quantity}

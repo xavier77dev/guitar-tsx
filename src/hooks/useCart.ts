@@ -28,11 +28,11 @@ export default function useCart() {
     return total;
   }, [cart])
 
-  const cartToAdd = (item: CartItem) => {
+  const cartToAdd = (item: Guitar) => {
     const cartExists = cart.findIndex((product) => product.id == item.id);
     if (cartExists < 0) {
-      item.quantity = 1;
-      return setCart([...cart, item]);
+      const newItem: CartItem = { ...item, quantity: 1 };
+      return setCart([...cart, newItem]);
     }
 
     if (cart[cartExists].quantity >= MAX_ITEMS) return;
@@ -42,11 +42,11 @@ export default function useCart() {
     setCart(updateCart);
   };
 
-  const removeFromCart = (id: number) => {
+  const removeFromCart = (id: Guitar["id"]) => {
     setCart((prevCart) => prevCart.filter((item) => item.id !== id));
   };
 
-  const increaseQuantity = ((id: number) => {
+  const increaseQuantity = ((id: Guitar["id"]) => {
     const updateCart = cart.map((item) => {
       if (item.id == id && item.quantity < MAX_ITEMS) {
         return {
@@ -57,9 +57,9 @@ export default function useCart() {
       return item;
     });
     setCart(updateCart);
-  };
+  });
 
-  const decreaseQuantity = (id) => {
+  const decreaseQuantity = (id: Guitar["id"]) => {
     const updateCart = cart.map((item) => {
       if (item.id == id && item.quantity > MIN_ITEMS) {
         return {
